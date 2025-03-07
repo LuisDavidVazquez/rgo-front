@@ -1,0 +1,151 @@
+<div class="flex items-center justify-center min-h-screen w-full p-4 bg-surface-50 dark:bg-surface-950">
+    <!-- Loading spinner -->
+    @if (loading) {
+        <div class="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50 z-50">
+            <p-progressSpinner></p-progressSpinner>
+        </div>
+    }
+
+    <!-- Error message -->
+    @if (mensajeError) {
+        <div class="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50 z-50">
+            <p-message severity="error" [closable]="true" (onClose)="cerrarMensajeError()">
+                {{ mensajeError }}
+            </p-message>
+        </div>
+    }
+
+    <div class="flex flex-col items-center justify-center w-full max-w-4xl">
+        <div style="border-radius: 56px; padding: 0.3rem; background: linear-gradient(180deg, var(--primary-color) 10%, rgba(33, 150, 243, 0) 30%)" class="w-full">
+            <div class="w-full bg-surface-0 dark:bg-surface-900 py-12 px-4 sm:px-8 md:px-20" style="border-radius: 53px">
+                <div class="text-center mb-8">
+                    <img src="assets/images/RastreoGo-Transparente2.png" alt="RastreoGo Logo" class="mx-auto mb-8 w-20" />
+                    <div class="text-surface-900 dark:text-surface-0 text-3xl font-medium mb-4">Quiero ser distribuidor</div>
+                </div>
+
+                <form [formGroup]="formulario" (ngSubmit)="onSubmit()" class="flex flex-col gap-4">
+                    <div class="flex flex-col md:flex-row gap-4">
+                        <div class="flex-1">
+                            <label for="name" class="block text-surface-900 dark:text-surface-0 font-medium mb-2">Nombre Completo</label>
+                            <input pInputText id="name" type="text" class="w-full" formControlName="name" autocomplete="name" [ngClass]="{ 'ng-invalid ng-dirty': campoInvalido('name') }" />
+                            @if (campoInvalido('name')) {
+                                <small class="text-red-500">{{ getMensajeError('name') }}</small>
+                            }
+                        </div>
+                        <div class="flex-1">
+                            <label for="phone" class="block text-surface-900 dark:text-surface-0 font-medium mb-2">Teléfono</label>
+                            <p-inputMask id="phone" mask="(999) 999-9999" formControlName="phone" placeholder="(999) 999-9999" styleClass="w-full" autocomplete="tel" [ngClass]="{ 'ng-invalid ng-dirty': campoInvalido('phone') }"> </p-inputMask>
+                            @if (campoInvalido('phone')) {
+                                <small class="text-red-500">{{ getMensajeError('phone') }}</small>
+                            }
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col gap-2">
+                        <label for="email" class="block text-surface-900 dark:text-surface-0 font-medium mb-2">Correo electrónico</label>
+                        <input pInputText id="email" type="email" class="w-full" formControlName="email" autocomplete="email" [ngClass]="{ 'ng-invalid ng-dirty': campoInvalido('email') }" />
+                        @if (campoInvalido('email')) {
+                            <small class="text-red-500">{{ getMensajeError('email') }}</small>
+                        }
+                    </div>
+
+                    <div class="flex flex-col gap-2">
+                        <label for="password" class="block text-surface-900 dark:text-surface-0 font-medium mb-2">Contraseña</label>
+                        <p-password
+                            id="password"
+                            [toggleMask]="true"
+                            formControlName="password"
+                            [feedback]="true"
+                            [inputStyle]="{ width: '100%' }"
+                            styleClass="w-full"
+                            [attr.autocomplete]="'new-password'"
+                            [ngClass]="{ 'ng-invalid ng-dirty': campoInvalido('password') }"
+                        >
+                        </p-password>
+                        @if (campoInvalido('password')) {
+                            <small class="text-red-500">{{ getMensajeError('password') }}</small>
+                        }
+                    </div>
+
+                    <div class="flex flex-col gap-2">
+                        <label class="block text-surface-900 dark:text-surface-0 font-medium mb-2">Tipo de Persona</label>
+                        <div class="flex gap-4">
+                            <div class="flex items-center">
+                                <p-radioButton name="personType" value="fisica" formControlName="personType" inputId="persona_fisica"></p-radioButton>
+                                <label for="persona_fisica" class="ml-2">Persona Física</label>
+                            </div>
+                            <div class="flex items-center">
+                                <p-radioButton name="personType" value="moral" formControlName="personType" inputId="persona_moral"></p-radioButton>
+                                <label for="persona_moral" class="ml-2">Persona Moral</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col gap-2">
+                        <label for="rfc" class="block text-surface-900 dark:text-surface-0 font-medium mb-2">RFC (13 caracteres)</label>
+                        <input pInputText id="rfc" type="text" class="w-full" formControlName="rfc" maxlength="13" [ngClass]="{ 'ng-invalid ng-dirty': campoInvalido('rfc') }" />
+                        @if (campoInvalido('rfc')) {
+                            <small class="text-red-500">{{ getMensajeError('rfc') }}</small>
+                        }
+                    </div>
+
+                    <div class="flex flex-col md:flex-row gap-4">
+                        <div class="flex-1">
+                            <label for="state" class="block text-surface-900 dark:text-surface-0 font-medium mb-2">Estado</label>
+                            <p-select
+                                id="state"
+                                [options]="estados"
+                                formControlName="state"
+                                optionLabel="nombre"
+                                optionValue="nombre"
+                                placeholder="Seleccione un estado"
+                                styleClass="w-full"
+                                [ngClass]="{ 'ng-invalid ng-dirty': campoInvalido('state') }"
+                            ></p-select>
+                            @if (campoInvalido('state')) {
+                                <small class="text-red-500">{{ getMensajeError('state') }}</small>
+                            }
+                        </div>
+                        <div class="flex-1">
+                            <label for="city" class="block text-surface-900 dark:text-surface-0 font-medium mb-2">Municipio</label>
+                            <p-select id="city" [options]="municipios" formControlName="city" placeholder="Seleccione un municipio" styleClass="w-full" [ngClass]="{ 'ng-invalid ng-dirty': campoInvalido('city') }"></p-select>
+                            @if (campoInvalido('city')) {
+                                <small class="text-red-500">{{ getMensajeError('city') }}</small>
+                            }
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col md:flex-row gap-4">
+                        <div class="flex-1">
+                            <label for="street" class="block text-surface-900 dark:text-surface-0 font-medium mb-2">Calle</label>
+                            <input pInputText id="street" type="text" class="w-full" formControlName="street" autocomplete="street-address" [ngClass]="{ 'ng-invalid ng-dirty': campoInvalido('street') }" />
+                            @if (campoInvalido('street')) {
+                                <small class="text-red-500">{{ getMensajeError('street') }}</small>
+                            }
+                        </div>
+                        <div class="flex-1">
+                            <label for="neighborhood" class="block text-surface-900 dark:text-surface-0 font-medium mb-2">Colonia</label>
+                            <input pInputText id="neighborhood" type="text" class="w-full" formControlName="neighborhood" [ngClass]="{ 'ng-invalid ng-dirty': campoInvalido('neighborhood') }" />
+                            @if (campoInvalido('neighborhood')) {
+                                <small class="text-red-500">{{ getMensajeError('neighborhood') }}</small>
+                            }
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col gap-2">
+                        <label for="postalCode" class="block text-surface-900 dark:text-surface-0 font-medium mb-2">Código Postal</label>
+                        <input pInputText id="postalCode" type="text" class="w-full" formControlName="postalCode" autocomplete="postal-code" maxlength="5" [ngClass]="{ 'ng-invalid ng-dirty': campoInvalido('postalCode') }" />
+                        @if (campoInvalido('postalCode')) {
+                            <small class="text-red-500">{{ getMensajeError('postalCode') }}</small>
+                        }
+                    </div>
+
+                    <div class="flex flex-col gap-4 mt-4">
+                        <p-button type="submit" label="Enviar Solicitud" styleClass="w-full"></p-button>
+                        <p-button type="button" label="Volver a inicio de sesión" styleClass="w-full p-button-secondary" (onClick)="volverALogin()"></p-button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

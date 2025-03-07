@@ -1,0 +1,305 @@
+.toolbar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    background-color: hsl(200, 2%, 68%);
+    color: rgb(20, 19, 19);
+    font-weight: 600;
+  }
+  
+  .toolbar img {
+    margin: 0 15px;
+  }
+  
+  .toolbar span {
+    margin: 0 10px;
+  }
+  
+  .search-banner {
+    float: left;
+    flex: 40%;
+    display: flex;
+    justify-content: first baseline;
+  }
+  
+  .search-item {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: lightgray;
+    margin: 0 30px 0px;
+    padding: 6px 10px;
+    display: flex;
+    align-items: center;
+    height: 40%;
+    width: 30%;
+  }
+  
+  .topnav a {
+    float: left;
+    display: block;
+    color: rgb(20, 19, 19);
+    text-align: center;
+    padding: 5px 10px;
+    text-decoration: none;
+    font-size: 15px;
+  }
+  
+  .dropdown {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+  }
+  
+  .dropdown:hover .dropdown-content {
+    display: block;
+  }
+  .loading-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.9);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+  
+  .loading-image {
+    width: 150px;  /* Ajusta el tamaño según necesites */
+    height: auto;
+    animation: spin 1.5s linear infinite;
+  }
+  
+  @keyframes spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  
+  @keyframes zoom {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1); }
+  }
+  
+  .container {
+    margin-top: 80px;
+    padding: 20px;
+  }
+  
+  .tabla-container {
+    width: 80%;
+    margin: 0 auto;
+  }
+  
+  .tabla {
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  
+  .custom-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .custom-table th,
+  .custom-table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .custom-table th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+  }
+  
+  .custom-table tr:nth-child(even) {
+    background-color: #f8f8f8;
+  }
+  
+  .custom-table tr:hover {
+    background-color: #e8e8e8;
+  }
+  
+  input[type="text"] {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+  }
+  
+  button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin: 10px 0;
+    height: 40px;
+    font-weight: bold;
+    text-transform: uppercase;
+    transition: background-color 0.3s;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: 20px;
+    margin-right: 20px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  
+  
+  }
+  
+  button:hover {
+    background-color: #45a049;
+  }
+  
+  
+  /* //////////////////////////////////////////////////// */
+  
+  .back-link {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #2c3e50;
+    cursor: pointer;
+    padding: 10px;
+    font-weight: 500;
+    transition: color 0.3s ease;
+    margin-bottom: 20px;
+  }
+  
+  .arrow {
+    font-size: 20px;
+    transition: transform 0.3s ease;
+  }
+  
+  .back-link:hover {
+    color: #ff6b00; /* Color naranja al hover */
+  }
+  
+  .back-link:hover .arrow {
+    transform: translateX(-5px);
+  }
+  
+  .dropdown-content {
+    color: #e5e1e1;
+    display: none;
+    position: absolute;
+    border-radius: 10px;
+  
+    background-color: #d4c3c385;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+  }
+  
+  .dropdown:hover .dropdown-content {
+    color: #e5e1e1;
+    /* display: block; */
+    display: flex;
+    align-items:center
+  }
+  
+  .dropdown:hover .dropdown-content {
+  display: block;
+  }
+  
+  
+  /*//////////////////////////////////////*/
+  .topnav {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    position: relative;
+    box-sizing: border-box;
+  }
+  
+  /* Enlaces de navegación */
+  .topnav a {
+    color: rgb(20, 19, 19);
+    text-decoration: none;
+    padding: 14px 16px;
+    font-size: 16px;
+    white-space: nowrap;
+  }
+  
+  /* Contenedor para los elementos de la derecha */
+  .topnav-right {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+  }
+  
+  /* Icono de notificación y badge */
+  .fa-bell {
+    position: relative;
+    cursor: pointer;
+    padding: 10px;
+  }
+  
+  .notification-badge {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background-color: red;
+    color: white;
+    border-radius: 50%;
+    padding: 2px 6px;
+    font-size: 12px;
+  }
+  
+  /* Dropdown del usuario */
+  .dropdown {
+    position: relative;
+    display: inline-block;
+    margin-left: 15px;
+  }
+  
+  /* Media queries para responsividad */
+  @media screen and (max-width: 768px) {
+    .topnav {
+        flex-wrap: wrap;
+        padding: 0 10px;
+    }
+  
+    .topnav a {
+        padding: 10px 8px;
+        font-size: 14px;
+    }
+  
+    /* Ocultar algunos elementos en pantallas muy pequeñas */
+    @media screen and (max-width: 480px) {
+        .topnav a:not(.active) {
+            display: none;
+        }
+        
+        /* Opcional: Añadir un botón de menú hamburguesa */
+        .topnav .menu-icon {
+            display: block;
+        }
+    }
+  }

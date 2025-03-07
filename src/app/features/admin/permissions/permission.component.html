@@ -1,0 +1,46 @@
+<div class="container">
+    <p class="brand">Rastreo Go Tabla de Permisos</p>
+    <div class="excel-list">
+      <!-- Contenido de la tabla aquí -->
+    </div>
+  
+    <div class="container">
+      <div class="excel-list">
+        <!-- Contenido de la tabla aquí -->
+      </div>
+  
+     
+    </div>
+  
+    <body>
+      <div class="container">
+        <div class="excel-list">
+          <!-- Encabezado de la tabla -->
+          <div class="excel-row header">
+            <div class="cell">Permiso de modulo</div>
+            <div class="cell">Detalle</div>
+            <div>
+              <label class="cell" for="name">Nombre:</label>
+              <input class="cell" type="text" id="name" [(ngModel)]="nameToSend" placeholder="Ingresa un nombre">
+            </div>
+          </div>
+        
+          <!-- Itera sobre cada fila de permisos -->
+          <div *ngFor="let row of rows; let rowIndex = index" class="excel-row">
+            <div class="cell name">{{ row.name }}</div>
+            <div class="cell detail">{{ row.detail }}</div>
+  
+            <!-- Checkbox para cada permiso -->
+           
+            <div class="cell">
+              <input type="checkbox" (change)="handleCheckboxChange(rowIndex)">
+            </div>
+          </div>
+        </div>
+        <button class="btn" (click)="sendDataToBackend()">Enviar</button>
+      </div>
+      <div class="button-container">
+        <button class="login-btn" (click)="navigateToLogin()">Ir a la página de inicio de sesión</button>
+      </div>
+  
+    </body>

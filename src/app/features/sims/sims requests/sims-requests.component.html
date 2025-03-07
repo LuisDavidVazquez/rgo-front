@@ -1,0 +1,74 @@
+<body>
+    <div class="loading-screen" *ngIf="loading">
+
+        <img class="loading-image"
+            src="assets/images/RastreoGo-Transparente2.png"
+            alt="Rastreo Go Logo" />
+        <!-- <span>Rastreo Go</span> -->
+    </div>
+
+
+    
+
+
+
+<div class="container">
+    <div class="content" role="main">
+        <div class="tabla-container">
+            <div class="tabla">
+                <div class="back-link" (click)="regresar()">
+                    <span class="arrow">←</span> Regresar
+                </div>
+                <h2>Datos Fiscales</h2>
+                <table class="custom-table">
+                    <tr *ngIf="solicituddeSim?.fiscalDetails && solicituddeSim?.fiscalDetails?.length">
+                        <th>RFC</th>
+                        <td>{{ solicituddeSim?.fiscalDetails?.[0]?.rfc }}</td>
+                    </tr>
+                    <tr *ngIf="solicituddeSim?.fiscalDetails?.length">
+                        <th>Tipo de Persona</th>
+                            <td>{{ solicituddeSim?.fiscalDetails?.[0]?.personType }}</td>
+                    </tr>
+
+                </table>
+
+                <h2>Dirección de Envío</h2>
+                <form (ngSubmit)="enviarDireccionEnvio()">
+                    <table class="custom-table">
+                        <tr>
+                            <th>Nombre</th>
+                            <td>{{ solicituddeSim?.name }}</td>
+                        </tr>
+                        <tr>
+                            <th>Código Postal</th>
+                            <td>{{ solicituddeSim?.addresses?.[0]?.postalCode }}</td>
+                        </tr>
+                        <tr>
+                            <th>Estado</th>
+                            <td>{{ solicituddeSim?.addresses?.[0]?.state }}</td>
+                        </tr>
+                        <tr>
+                            <th>Municipio</th>
+                            <td>{{ solicituddeSim?.addresses?.[0]?.city }}</td>
+                        </tr>
+                        <tr>
+                            <th>Calle y Número</th>
+                            <td><input type="text" [(ngModel)]="direccionEnvio.street" name="street"></td>
+                        </tr>
+                        <tr>
+                            <th>Colonia</th>
+                            <td><input type="text" [(ngModel)]="direccionEnvio.neighborhood" name="neighborhood"></td>
+                        </tr>
+                        <tr>
+                            <th>Cantidad de SIMs solicitadas</th>
+                            <td><input type="number" [(ngModel)]="cantidadSimsSolicitadas" name="cantidadSims" min="1"></td>
+                        </tr>
+                    </table>
+                </form>
+
+            </div>
+            <button type="button" (click)="enviarDireccionEnvio()">Enviar solicitud de sim</button>
+        </div>
+    </div>
+</div>
+</body>

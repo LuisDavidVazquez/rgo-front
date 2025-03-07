@@ -1,0 +1,98 @@
+<body>
+  <div [class.mexPago]="!theadHidden" class="modal">
+    <div class="left">
+      <h3>Selecciona el monto de la recarga</h3>
+      <p>Elige el monto que deseas recargar para continuar con el servicio.</p>
+      <a>Ten en cuenta que las recargas son necesarias para mantener la conectividad activa en tu cuenta. </a>
+      <br>
+      <div>
+        <button *ngFor="let plan of plans, let i = index"
+          [ngClass]="{ 'options': true, 'selected': i === selectedOptionIndex }" 
+          (click)="selectOption(i)">
+          <span class="bigFont">{{plan.amount | currency: 'USD': 'symbol':'1.2-2' }}</span> <br>
+          <span class="smallFont"> Vigencia {{plan.days}} días</span>
+        </button>
+      </div>
+      <button class="btn-gray" (click)="pagoRastreoGo()">Continuar</button> 
+    </div>
+    <div class="rigth">
+      <h3>Unidades a recargar</h3>
+      <ul *ngFor="let sim of simsarray">
+        <li> {{  sim.name }} </li>
+      </ul>
+    </div>
+  </div>
+
+  <div [class.mexPago]="theadHidden">
+    <!-- Formulario MexPago -->
+    <form class="formulario" ngNoForm *ngIf="!theadHidden" action="https://dev.mexpago.com/app/pagoOnline" method="post">
+      <div class="form-group">
+        <label for="monto">Monto:</label>
+        <input class="monto" type="input" name="monto" id="monto" value="{{requestMexPago.monto}}" readonly>
+      </div>
+      <Label for="monto"> Folio : </Label>
+      <input class="monto" type="text" name="noTransaccion" value="{{requestMexPago.noTransaccion}}" readonly>
+      <input class="monto" type="hidden" name="llave" value="{{requestMexPago.llave}}" readonly>
+      <input class="monto" type="hidden" name="fecha" value="{{ requestMexPago.fecha }}" readonly>
+
+      <input class="montoarticulos" type="hidden" name="articulos" value='{ "articulos" : [{{arts}}] }' readonly>
+
+      <Label for="monto">Articulos : </Label>
+      <ol class="content">
+        <li *ngFor="let art of artsString">
+          {{ art }}
+        </li>
+      </ol>
+
+      <input type="hidden" name="precargaDatos" value='{ "nombre" : "{{ requestMexPago.precargaDatos.nombre }}", "apPaterno"
+    : "{{ requestMexPago.precargaDatos.apPaterno }}", "apMaterno" : "{{ requestMexPago.precargaDatos.apMaterno }}", "correo":"{{ requestMexPago.precargaDatos.correo }}", "celular" : "{{ requestMexPago.precargaDatos.celular }}"
+    }'>
+    </form>
+
+    <!-- Formulario Stripe -->
+    <div [class.stripe-form]="theadHidden">
+      <form #stripeForm="ngForm" (ngSubmit)="processStripePayment2()" class="formulario">
+        <div class="payment-summary">
+          <div class="stripe-info" *ngIf="selectedPaymentMethod === 'STRIPE'">
+            <p>Para realizar el pago con Stripe:</p>
+            <ol>
+              <li>Selecciona un plan</li>
+              <li>Si tienes un bloqueador de anuncios, desactívalo temporalmente</li>
+              <li>Haz clic en "Pagar con Stripe"</li>
+              <li>Completa los datos de tu tarjeta en la ventana segura de Stripe</li>
+            </ol>
+          </div>
+          <h3>Resumen de pago</h3>
+          <div class="amount-details">
+            <div *ngFor="let articulo of requestPayment.articulos" class="item-detail">
+              <span>{{articulo.descripcion}}</span>
+              <span>{{articulo.monto | currency:'MXN'}}</span>
+            </div>
+            <div class="total">
+              <Label>Monto total:</Label>
+              <span>{{requestPayment.monto | currency:'MXN'}}</span>
+            </div>
+          </div>
+        </div>
+
+        <div id="stripe-elements">
+          <div id="card-element"></div>
+          <div id="card-errors" role="alert"></div>
+        </div>
+
+        <button 
+          type="submit" 
+          class="stripe-button" 
+          [disabled]="selectedOptionIndex === -1 || processing"
+          (click)="processStripePayment2()">
+          <img src="https://b.stripecdn.com/site-srv/assets/img/v3/home/purple-ce5a9c8a700c60c64f469c3ce7b8f26a.png"
+            alt="">
+          {{ processing ? 'Procesando...' : 'Pagar con Stripe' }}
+        </button>
+      </form>
+    </div>
+  </div>
+</body>
+  
+  
+    

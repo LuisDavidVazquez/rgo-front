@@ -1,0 +1,91 @@
+<div class="flex justify-center items-start py-8 md:items-center h-full">
+    <div class="card w-[95%] max-w-lg mx-auto p-4 md:p-6">
+        <!-- Header con botón regresar -->
+        <div class="mb-4">
+            <div class="back-link" (click)="goBack()">
+                <span class="arrow">←</span>
+                <span>Regresar</span>
+            </div>
+        </div>
+
+        <!-- Título del formulario -->
+        <h1 class="text-2xl md:text-3xl font-bold text-center mb-2">Registrar SIM</h1>
+        <p class="text-center text-gray-600 mb-6">Escribe los datos de la línea Sim (GPS)</p>
+
+        <!-- Formulario -->
+        <p-fluid>
+            <form class="flex flex-col gap-4" [formGroup]="simForm" (ngSubmit)="onSubmit()">
+                <!-- Nombre del usuario -->
+                <div class="flex flex-col gap-2">
+                    <label for="username" class="font-medium">Nombre del usuario a quien se asigna</label>
+                    <select pInputText id="username" formControlName="username" [ngClass]="{ 'ng-invalid ng-dirty': isFieldInvalid('username') }">
+                        <option value="">Seleccione un usuario</option>
+                        <option *ngFor="let user of users" [value]="user.username">
+                            {{ user.username }}
+                        </option>
+                    </select>
+
+                    <small class="text-red-500" *ngIf="isFieldInvalid('username')">
+                        {{ getErrorMessage('username') }}
+                    </small>
+                </div>
+
+                <!-- ICCID -->
+                <div class="flex flex-col gap-2">
+                    <label for="iccid" class="font-medium">No. de serie de la Sim (ICCID)</label>
+                    <input pInputText id="iccid" formControlName="iccid" type="text" placeholder="Ingrese ICCID" [ngClass]="{ 'ng-invalid ng-dirty': isFieldInvalid('iccid') }" />
+                    <small class="text-red-500" *ngIf="isFieldInvalid('iccid')">
+                        {{ getErrorMessage('iccid') }}
+                    </small>
+                </div>
+
+                <!-- Nombre de la unidad -->
+                <div class="flex flex-col gap-2">
+                    <label for="unitname" class="font-medium">Nombre de la unidad</label>
+                    <input pInputText id="unitname" formControlName="unitname" type="text" placeholder="Ingrese nombre de la unidad" [ngClass]="{ 'ng-invalid ng-dirty': isFieldInvalid('unitname') }" />
+                    <small class="text-red-500" *ngIf="isFieldInvalid('unitname')">
+                        {{ getErrorMessage('unitname') }}
+                    </small>
+                </div>
+
+                <!-- IMEI -->
+                <div class="flex flex-col gap-2">
+                    <label for="imei" class="font-medium">No. de serie del GPS (IMEI)</label>
+                    <input pInputText id="imei" formControlName="imei" type="text" placeholder="Ingrese IMEI" />
+                </div>
+
+                <!-- Marca del GPS -->
+                <div class="flex flex-col gap-2">
+                    <label for="gps" class="font-medium">Marca del GPS</label>
+                    <select pInputText id="gps" formControlName="gps" [ngClass]="{ 'ng-invalid ng-dirty': isFieldInvalid('gps') }">
+                        <option value="">Seleccione una marca</option>
+                        <option *ngFor="let marca of gpsMarca" [value]="marca">{{ marca }}</option>
+                    </select>
+                    <small class="text-red-500" *ngIf="isFieldInvalid('gps')">
+                        {{ getErrorMessage('gps') }}
+                    </small>
+                </div>
+
+                <div class="flex flex-col gap-2">
+                    <label for="model" class="font-medium">Modelo del GPS</label>
+                    <select pInputText id="model" formControlName="model" [ngClass]="{ 'ng-invalid ng-dirty': isFieldInvalid('model') }">
+                        <option value="">Seleccione un modelo</option>
+                        <option *ngFor="let model of gpsModel" [value]="model">{{ model }}</option>
+                    </select>
+                    <small class="text-red-500" *ngIf="isFieldInvalid('model')">
+                        {{ getErrorMessage('model') }}
+                    </small>
+                </div>
+
+                <!-- Botones de acción -->
+                <div class="flex flex-col gap-3 mt-4">
+                    <button pButton type="submit" label="Añadir Línea" class="p-button-primary w-full" [loading]="loading"></button>
+                    <button pButton type="button" label="Terminar registro" class="p-button-secondary w-full" (click)="onSubmit(false)"></button>
+                </div>
+            </form>
+        </p-fluid>
+    </div>
+
+    <!-- Toast para mensajes -->
+    <p-toast></p-toast>
+</div>
