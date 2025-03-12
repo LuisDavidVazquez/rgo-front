@@ -30,10 +30,26 @@
                     </small>
                 </div>
 
-                <!-- ICCID -->
+                <!-- ICCID con AutoComplete -->
                 <div class="flex flex-col gap-2">
                     <label for="iccid" class="font-medium">No. de serie de la Sim (ICCID)</label>
-                    <input pInputText id="iccid" formControlName="iccid" type="text" placeholder="Ingrese ICCID" [ngClass]="{ 'ng-invalid ng-dirty': isFieldInvalid('iccid') }" />
+                    <p-autoComplete
+                        [formControlName]="'iccid'"
+                        [suggestions]="filteredIccids"
+                        (completeMethod)="filterIccids($event)"
+                        (onSelect)="onIccidSelect($event)"
+                        [forceSelection]="true"
+                        [dropdown]="true"
+                        [showClear]="true"
+                        field="iccid"
+                        [style]="{'width':'100%'}"
+                        [inputStyle]="{'width':'100%'}"
+                        [ngClass]="{ 'ng-invalid ng-dirty': isFieldInvalid('iccid') }"
+                        placeholder="Buscar ICCID"
+                        [virtualScroll]="true"
+                        [itemSize]="31"
+                    >
+                    </p-autoComplete>
                     <small class="text-red-500" *ngIf="isFieldInvalid('iccid')">
                         {{ getErrorMessage('iccid') }}
                     </small>

@@ -12,7 +12,12 @@ import { environment } from '../../../environments/environment';
 import { AuthService } from '../../../core/auth/auth.service';
 import { SimsDataService } from '../../../core/services/sims-data.service';
 import { Location } from '@angular/common';
-import { ClientsService, UserByClient } from '../../../core/services/clients.service';
+import { ClientsService, UserByClient, SimIccid } from '../../../core/services/clients.service';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatInputModule } from '@angular/material/input';
+import { Observable } from 'rxjs';
+import { map, startWith } from 'rxjs/operators';
+import { AutoCompleteModule } from 'primeng/autocomplete';
 
 interface ClienteIccid {
     username: string;
@@ -27,7 +32,7 @@ interface ClienteIccid {
 @Component({
     selector: 'app-sim-register',
     standalone: true,
-    imports: [CommonModule, RouterModule, ButtonModule, InputTextModule, ProgressSpinnerModule, ToastModule, FluidModule, ReactiveFormsModule],
+    imports: [CommonModule, RouterModule, ButtonModule, InputTextModule, ProgressSpinnerModule, ToastModule, FluidModule, ReactiveFormsModule, MatAutocompleteModule, MatInputModule, AutoCompleteModule],
     templateUrl: './sim-register.component.html',
     providers: [MessageService],
     styles: [
@@ -72,11 +77,12 @@ export class SimRegisterComponent implements OnInit {
     gpsMarca: string[] = ['Teltonika', 'Ruptela', 'Tekastar'];
     gpsModel: string[] = ['T20', 'T30', 'T40'];
     users: UserByClient[] = [];
+    availableIccids: SimIccid[] = [];
+    filteredIccids: SimIccid[] = [];
 
     constructor(
         private fb: FormBuilder,
         private router: Router,
-
         private route: ActivatedRoute,
         private authService: AuthService,
         private messageService: MessageService,
@@ -90,19 +96,65 @@ export class SimRegisterComponent implements OnInit {
     private initForm(): void {
         this.simForm = this.fb.group({
             username: ['', [Validators.required]],
-            iccid: ['', [Validators.required]],
+            iccid: [null, [Validators.required]],
             unitname: ['', [Validators.required]],
+            imei: [''],
             gps: ['', [Validators.required]],
-            model: [''],
-            imei: ['']
+            model: ['']
         });
+    }
+
+    filterIccids(event: any) {
+        const query = event.query.toLowerCase();
+        this.filteredIccids = this.availableIccids.filter(sim => 
+            sim.iccid.toLowerCase().includes(query) ||
+            (sim.name && sim.name.toLowerCase().includes(query))
+        );
+    }
+
+    onIccidSelect(event: any) {
+        const selectedSim = event;
+        if (selectedSim && selectedSim.name) {
+            this.simForm.patchValue({
+                unitname: selectedSim.name
+            });
+        }
     }
 
     ngOnInit(): void {
         const token = localStorage.getItem('authToken');
         if (token) {
             this.userId = localStorage.getItem('ID') || '';
+            this.loadIccids();
             this.getClients();
+        }
+    }
+
+    loadIccids(): void {
+        const clientId = Number(this.userId);
+        console.log('Loading ICCIDs for clientId:', clientId);
+        
+        if (clientId) {
+            this.clientsService.getAvailableIccids(clientId).subscribe({
+                
+                next: (iccids) => {
+                    console.log('Received ICCIDs:', iccids);
+                    this.availableIccids = iccids;
+                },
+                error: (error) => {
+                    console.error('Error al cargar ICCIDs:', error);
+                    console.error('Error status:', error.status);
+                    console.error('Error message:', error.message);
+                    console.error('Error details:', error.error);
+                    this.messageService.add({
+                        severity: 'error',
+                        summary: 'Error',
+                        detail: 'No se pudieron cargar los ICCIDs disponibles'
+                    });
+                }
+            });
+        } else {
+            console.error('Invalid clientId:', this.userId);
         }
     }
 
@@ -122,23 +174,27 @@ export class SimRegisterComponent implements OnInit {
         if (this.simForm.valid) {
             this.loading = true;
             const formValues = this.simForm.value;
+            
+            // El ICCID ya vendrá como objeto SimIccid
+            const selectedSim = formValues.iccid;
 
-            if (!this.validarDatosFormulario(formValues)) {
-                this.loading = false;
-                localStorage.setItem('unitName', formValues.unitname);
-                return;
-            }
+            const formData: ClienteIccid = {
+                username: formValues.username,
+                iccid: selectedSim.iccid,
+                unitName: formValues.unitname,
+                imei: formValues.imei || '',
+                gps: formValues.gps,
+                clientId: Number(this.userId),
+                simId: selectedSim.id
+            };
 
-            const userId = Number(localStorage.getItem('ID'));
-            const iccid = formValues.iccid;
-
-            if (isNaN(userId) || userId <= 0) {
+            if (isNaN(Number(this.userId)) || Number(this.userId) <= 0) {
                 this.mostrarError('Error: ID de usuario no válido');
                 this.loading = false;
                 return;
             }
 
-            this.simsDataService.getSimIdByIccid(iccid).subscribe({
+            this.simsDataService.getSimIdByIccid(selectedSim.iccid).subscribe({
                 next: (simId: number) => {
                     if (!simId || isNaN(Number(simId))) {
                         this.mostrarError('Error: No se pudo obtener un ID de SIM válido');
@@ -146,15 +202,6 @@ export class SimRegisterComponent implements OnInit {
                         return;
                     }
 
-                    const formData: ClienteIccid = {
-                        username: formValues.username,
-                        iccid: iccid,
-                        unitName: formValues.unitname,
-                        imei: formValues.imei || '',
-                        gps: formValues.gps,
-                        clientId: userId,
-                        simId: simId
-                    };
                     localStorage.setItem('currentTransaction', JSON.stringify(formData));
 
                     if (altas) {
