@@ -365,4 +365,53 @@ export class AuthService {
         // // console.log('Verificando autenticación - Token:', token); // Para debug
         return !!token;
     }
+
+    requestResetPassword(email: string): Observable<any> {
+        return this.http
+            .post(`${this.apiUrl}/auth/request-reset-password`, { email }, {
+                headers: new HttpHeaders({
+                    'Content-Type': 'application/json'
+                })
+            })
+            .pipe(
+                tap(response => console.log('Password reset response:', response)),
+                catchError((error) => {
+                    console.error('Error en solicitud de reset:', error);
+                    return this.handleHttpError(error);
+                })
+            );
+    }
+
+    // Método para restablecer la contraseña con el token
+    resetPassword(token: string, newPassword: string, confirmPassword: string): Observable<any> {
+        return this.http
+            .post(`${this.apiUrl}/auth/reset-password`, { 
+                token, 
+                newPassword, 
+                confirmPassword 
+            }, {
+                headers: new HttpHeaders({
+                    'Content-Type': 'application/json'
+                })
+            })
+            .pipe(
+                tap(response => console.log('Password reset response:', response)),
+                catchError((error) => {
+                    console.error('Error en reset password:', error);
+                    return this.handleHttpError(error);
+                })
+            );
+    }
+
+    verifyResetToken(token: string): Observable<any> {
+        return this.http
+            .post(`${this.apiUrl}/auth/verify-reset-token`, { token }, {
+                headers: new HttpHeaders({
+                    'Content-Type': 'application/json'
+                })
+            })
+            .pipe(
+                catchError(this.handleHttpError)
+            );
+    }
 }

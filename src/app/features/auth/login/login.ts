@@ -75,7 +75,7 @@ import { RastreogoLoadingComponent } from '../../../core/components/rastreogo-lo
                                         </p-checkbox>
                                         <label for="rememberMe">Recuérdame</label>
                                     </div>
-                                    <a class="font-medium no-underline cursor-pointer forgot-password-link">¿Olvidaste tu contraseña?</a>
+                                    <a [routerLink]="['/auth/request-reset-password']" class="font-medium no-underline cursor-pointer forgot-password-link">¿Olvidaste tu contraseña?</a>
                                 </div>
 
                                 <p-button type="submit" 
