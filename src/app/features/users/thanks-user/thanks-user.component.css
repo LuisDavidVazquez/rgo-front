@@ -1,0 +1,15 @@
+:host {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Ocupa toda la altura de la ventana */
+    background-color: #f9f9f9; /* Fondo suave */
+  }
+  
+  p {
+    font-size: 1.5em;
+    color: #2c3e50;
+    text-align: center;
+    max-width: 600px; /* Limita el ancho para mejor legibilidad */
+  }
+  

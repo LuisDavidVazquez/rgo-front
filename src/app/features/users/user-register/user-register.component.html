@@ -1,0 +1,55 @@
+<div class="flex justify-center items-start py-8 md:items-center h-full">
+    <div class="card w-[95%] max-w-lg mx-auto p-4 md:p-6">
+        <!-- Header con botón regresar -->
+        <div class="mb-4">
+            <div class="back-link" (click)="goBack()">
+                <span class="arrow">←</span>
+                <span>Regresar</span>
+            </div>
+        </div>
+
+        <!-- Título del formulario -->
+        <h1 class="text-2xl md:text-3xl font-bold text-center mb-2">Registrar cliente</h1>
+        <p class="text-center text-gray-600 mb-6">Escriba los datos del cliente a dar de alta.</p>
+
+        <!-- Formulario -->
+        <p-fluid>
+            <form class="flex flex-col gap-4" [formGroup]="userForm" (ngSubmit)="onSubmit()">
+                <!-- Nombre completo -->
+                <div class="flex flex-col gap-2">
+                    <label for="username" class="font-medium">Nombre completo</label>
+                    <input pInputText id="username" formControlName="username" type="text" placeholder="Ingrese nombre completo" [ngClass]="{ 'ng-invalid ng-dirty': isFieldInvalid('username') }" />
+                    <small class="text-red-500" *ngIf="isFieldInvalid('username')">
+                        {{ getErrorMessage('username') }}
+                    </small>
+                </div>
+
+                <!-- Correo electrónico -->
+                <div class="flex flex-col gap-2">
+                    <label for="email" class="font-medium">Correo electrónico</label>
+                    <input pInputText id="email" formControlName="email" type="email" placeholder="Ingrese correo electrónico" [ngClass]="{ 'ng-invalid ng-dirty': isFieldInvalid('email') }" />
+                    <small class="text-red-500" *ngIf="isFieldInvalid('email')">
+                        {{ getErrorMessage('email') }}
+                    </small>
+                </div>
+
+                <!-- Número de teléfono -->
+                <div class="flex flex-col gap-2">
+                    <label for="phone" class="font-medium">Número de teléfono</label>
+                    <input pInputText id="phone" formControlName="phone" type="tel" placeholder="Ingrese número de teléfono" [ngClass]="{ 'ng-invalid ng-dirty': isFieldInvalid('phone') }" />
+                    <small class="text-red-500" *ngIf="isFieldInvalid('phone')">
+                        {{ getErrorMessage('phone') }}
+                    </small>
+                </div>
+
+                <!-- Botón Siguiente -->
+                <div class="mt-4">
+                    <button pButton type="submit" label="Siguiente" class="w-full" [loading]="loading"></button>
+                </div>
+            </form>
+        </p-fluid>
+    </div>
+
+    <!-- Toast para mensajes -->
+    <p-toast></p-toast>
+</div>

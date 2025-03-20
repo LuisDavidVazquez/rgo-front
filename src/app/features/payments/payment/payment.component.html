@@ -1,0 +1,53 @@
+<div class="container">
+    <div class="left">
+    <h3>Confimación de compra</h3>
+    <!-- <h4>Líneas a recargar</h4> -->
+    <h5>Numbre de la unidad</h5>
+    
+    <ul *ngFor="let sim of transacionsim.articulos">
+        <li>{{sim.name||sim.unitName}}</li>
+    
+        
+    </ul>
+    <hr>
+     <h5>Detalles del pago</h5>
+        <p><strong>Forma de pago:</strong> {{ formaPago }}</p>
+        <p><strong>Tipo de tarjeta:</strong> {{ tipoTarjeta }}</p>
+        <p><strong>Banco:</strong> {{ banco }}</p>
+        <p><strong>Últimos 4 dígitos:</strong> {{ numeroAutorizacion }}</p>
+        <p><strong>Tipo:</strong> {{ debitoCredito }}</p>
+    
+    
+    <p></p>
+    <hr>
+    <table>
+        <body>
+            <tr>
+                <td>Pago</td>
+    
+                <td>{{ monto | currency: 'USD': 'symbol':'1.2-2' }}</td>
+            </tr>
+        </body>
+    </table>
+    <button (click)="endTransaccion()">Finalizar compra</button>
+    </div>
+    
+    <div class="rigth">
+        <h3>Detalles</h3>
+        <h4>Plan de recarga</h4>
+    
+        <ul *ngFor="let sim of transacionsim.articulos">
+            <li>{{sim.planName}}</li>
+            <li>{{sim.monto}}</li>
+    
+          </ul> 
+          <p *ngIf="monto">
+            {{ monto | currency: 'USD': 'symbol':'1.2-2' }} 
+            ( {{ days }} días )
+          </p>    <p>Su plan se activa a partir de hoy</p>
+        
+        <br>
+        <p>Plataforma </p>
+        <p>Se enviará a su correo la facturación de su pedido</p>
+    </div>
+    </div>

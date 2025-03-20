@@ -1,0 +1,168 @@
+<body>
+    <div class="loading-screen" *ngIf="loading">
+
+        <img class="loading-image"
+            src=" data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAA9QAAAMRCAMAAAA6Lw6xAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAylpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDkuMS1jMDAxIDc5LjE0NjI4OTk3NzcsIDIwMjMvMDYvMjUtMjM6NTc6MTQgICAgICAgICI+IDxyZGY6UkRGIHhtbG5zOnJkZj0iaHR0cDovL3d3dy53My5vcmcvMTk5OS8wMi8yMi1yZGYtc3ludGF4LW5zIyI+IDxyZGY6RGVzY3JpcHRpb24gcmRmOmFib3V0PSIiIHhtbG5zOnhtcD0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wLyIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bXA6Q3JlYXRvclRvb2w9IkFkb2JlIFBob3Rvc2hvcCAyNS4xIChNYWNpbnRvc2gpIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOjhBNjE2QkY5MTdCMzExRUY5MjYwOTRDMDE1NUZEQUM2IiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOjhBNjE2QkY5MTdCMzExRUY5MjYwOTRDMDE1NUZEQUM2Ij4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6OEE2MTZCRjcxN0IzMTFFRjkyNjA5NEMwMTU1RkRBQzYiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6OEE2MTZCRjgxN0IzMTFFRjkyNjA5NEMwMTU1RkRBQzYiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz5STQX3AAAANlBMVEX/WTL/////3M3/tJb/ZT3/9/P/5tj/n3z/yLH/7+X/flX/cUr/08D/vqP/q4r/lG//iWIAAACtmY5pAAAAEnRSTlP//////////////////////wDiv78SAAAZWElEQVR42uzdW3YbR7JA0QQJgCAJvuY/2dvQ8o/7tmyoKiMRGbnPCKxA7XqGpfYjqVTNCCSoJUEtCWpJUEuCWoJaEtSSoJYEtSSoJaglQS0JaklQS4JagloS1JKglgS1JKglqCVBLQlqSVBLglqCWhLUkqCWBLUkqCWoJUEtCWpJUEuCWoJaEtSSoJYEtSSoJaglQS0JaklQS4JagloS1JKglgS1JKglqCVBLQlqSVBLglqCWhLUkqCWBLUkqCWoJUEtCWpJUEuCWoJaEtSSoJYEtSSoNeb4+X2GA7Xm9Xt/xgi15ncMONSqTZluqFUXM9xQqyhmtqFWUc1sQ62inMmGWhU5ow21SnImG2qV9Aw21CromWyoVdEz2FADDTbU4hlsqAU02FALaK6hFs9gQw0011CLaK6hFtBcQy2guYZaRHMNNdBqUItorqEW0FxDLaKxhppocQ010VrYNdREYw21iIYaahENM9REi2eoiZZ9MqiJ5hlqEQ001CIaaKiRFtBQE020oCaaaKiFNNBQi2iioUZaRENNNNKCGmmioRbRREMtpImGmmghDTXSRAtqoomGWkgjDbWQRhpqpEU01EQzLaiRph1qIc031OYqtKFGWmhDTbTAhhppsKEW0mBDjbS4hhppcQ010uIaaqS5hlpIYw010sIaaqTFNdRIC2uokdYirKFGeip9WEONdNErKdVQI13xxhhrqJku+KCLNdRI13tzRTXUSNd7FY011EiX+7ZENdRIl/tYjDXUSJdb/6AaaqbL7XNRDTXSlURjDTXS5URv+rGgRlrZH11XVw0107VEb/nJoEZa6cEsrRpqpMuJXl011EzXE734gzXUSFckvbRqqJGuKHrpW3ComS5Kel3VUCNdlTTUQrqW6HVVQ810WdKrqoYa6bqkF1UNNdOFSa+pGmqkC4teUzXUSJcmveISCtRMlya9omqoka5NesEbcKiZLk56vUs11EgXJ72eaqiZrk56ub+MEGqkq5Ne7lINNdP1TS+mGmpA2wJ3p0vdgDem9YDjfTgqqJFWxNH+wLuClS7VjWnFH+qPvz1oC6luSCvwQJ/4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"
+            alt="Rastreo Go" />
+
+
+        <!-- <div class="spinner"></div> -->
+    </div>
+    <!-- Toolbar -->
+
+
+
+        <div class="content" role="main">
+            <div class="card">
+                <button pButton 
+                    class="p-button-text" 
+                    (click)="regresar()"
+                    icon="fa-regular fa-arrow-left-to-bracket"
+                    style="margin-bottom: 1rem;">
+                </button>
+                
+                <div class="font-semibold text-xl mb-4">Líneas de {{ user?.username || userName }}</div>
+
+                <p-table
+                    #dt1
+                    [value]="filteredUserSims"
+                    dataKey="id"
+                    [rows]="10"
+                    [loading]="loading"
+                    [rowHover]="true"
+                    [showGridlines]="true"
+                    [paginator]="true"
+                    [globalFilterFields]="['iccid', 'planName', 'gps', 'imei', 'status']"
+                    responsiveLayout="scroll"
+                >
+                    <ng-template pTemplate="caption">
+                        <div class="flex flex-column md:flex-row justify-content-between align-items-center gap-3">
+                            <!-- Contenedor izquierdo -->
+                            <div class="flex flex-column sm:flex-row align-items-center gap-2 w-full md:w-auto">
+                                <p-select
+                                    [(ngModel)]="selectedStatus"
+                                    (onChange)="filterSimsByStatus($event.value)"
+                                    [options]="[
+                                        {label: 'Todos', value: 'all'},
+                                        {label: 'Activo', value: 'Activo'},
+                                        {label: 'Suspendido', value: 'Suspendido'},
+                                        {label: 'Inactivo', value: 'Inactivo'}
+                                    ]"
+                                    placeholder="Filtrar por estado"
+                                    [style]="{'min-width': '200px'}"
+                                    class="w-full sm:w-auto"
+                                ></p-select>
+                                
+                                <button 
+                                    pButton 
+                                    label="Exportar Excel" 
+                                    icon="pi pi-file-excel" 
+                                    class="p-button-outlined w-full sm:w-auto"
+                                    (click)="exportToExcel()"
+                                ></button>
+                            </div>
+                            
+                            <!-- Buscador -->
+                            <div class="flex justify-between items-center flex-column sm:flex-row">
+                                <div class="p-input-icon-left ml-auto" style="position: relative;">
+                                    <i class="pi pi-search" style="left: 0.75rem; position: absolute; top: 50%; transform: translateY(-50%);"></i>
+                                    <input 
+                                        pInputText 
+                                        type="text" 
+                                        (input)="onGlobalFilter(dt1, $event)" 
+                                        placeholder="Buscar..."
+                                        style="padding-left: 2.5rem;"
+                                        class="w-full md:w-auto"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                    </ng-template>
+
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th>
+                                <div class="flex justify-between items-center">
+                                    ID
+                                    <p-columnFilter type="text" field="id" display="menu"></p-columnFilter>
+                                </div>
+                            </th>
+                            <th>
+                                <div class="flex justify-between items-center">
+                                    ICCID
+                                    <p-columnFilter type="text" field="iccid" display="menu"></p-columnFilter>
+                                </div>
+                            </th>
+                            <th>
+                                <div class="flex justify-between items-center">
+                                    Plan
+                                    <p-columnFilter type="text" field="planName" display="menu"></p-columnFilter>
+                                </div>
+                            </th>
+                            <th>
+                                <div class="flex justify-between items-center">
+                                    GPS
+                                    <p-columnFilter type="text" field="gps" display="menu"></p-columnFilter>
+                                </div>
+                            </th>
+                            <th>
+                                <div class="flex justify-between items-center">
+                                    IMEI
+                                    <p-columnFilter type="text" field="imei" display="menu"></p-columnFilter>
+                                </div>
+                            </th>
+                            <th>
+                                <div class="flex justify-between items-center">
+                                    Estado
+                                    <p-columnFilter field="status" matchMode="equals" display="menu">
+                                        <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                                            <p-select [ngModel]="value" [options]="[
+                                                {label: 'Activo', value: 'Activo'},
+                                                {label: 'Suspendido', value: 'Suspendido'},
+                                                {label: 'Inactivo', value: 'Inactivo'}
+                                            ]" (onChange)="filter($event.value)" placeholder="Cualquiera">
+                                            </p-select>
+                                        </ng-template>
+                                    </p-columnFilter>
+                                </div>
+                            </th>
+                            <th>Fecha de Vencimiento</th>
+                            <th>Fecha de Activación</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </ng-template>
+
+                    <ng-template pTemplate="body" let-sim>
+                        <tr>
+                            <td>{{sim.id}}</td>
+                            <td>{{sim.iccid}}</td>
+                            <td>{{sim.planName}}</td>
+                            <td>{{sim.gps}}</td>
+                            <td>{{sim.imei}}</td>
+                            <td>
+                                <p-tag [value]="sim.status" [severity]="getSeverity(sim.status)"></p-tag>
+                            </td>
+                            <td>{{sim.dueDate | date:'dd/MM/yyyy'}}</td>
+                            <td>{{sim.activationDate | date:'dd/MM/yyyy'}}</td>
+                            <td>
+                                <div class="flex gap-2">
+                                    <button pButton pRipple icon="pi pi-sync" 
+                                        class="p-button-rounded p-button-success" 
+                                        (click)="rechargeOne(sim)"
+                                        pTooltip="Recargar"
+                                        tooltipPosition="top">
+                                    </button>
+                                    <button pButton pRipple icon="pi pi-pencil" 
+                                        class="p-button-rounded p-button-warning" 
+                                        (click)="editar(sim)"
+                                        pTooltip="Editar"
+                                        tooltipPosition="top">
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+        </div>
+</body>

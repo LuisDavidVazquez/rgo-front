@@ -1,0 +1,8 @@
+{
+    "/api": {
+      "target": "http://development-qasar-alb-1822586593.us-east-2.elb.amazonaws.com:5006",
+      "secure": false,
+      "changeOrigin": true
+    }
+  }
+  

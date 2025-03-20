@@ -1,0 +1,36 @@
+<body>
+
+  
+  
+  
+  <div class="content">
+    <div *ngFor="let solicitud of solicitudesPendientes" class="solicitud-item">
+        <p (click)="mostrarDetalles(solicitud)" style="cursor: pointer; font-weight: 500;">
+            {{ solicitud.name }}
+        </p>
+        <div class="action-buttons">
+            <button class="approve-btn" (click)="approveData(solicitud)">Aprobar</button>
+            <button class="reject-btn" (click)="rejectData(solicitud)">Rechazar</button>
+        </div>
+    </div>
+</div>
+
+<div class="content2">
+    <div *ngIf="selectedSolicitud" class="detalles-container">
+        <h2>Detalles del Solicitante</h2>
+        <p><strong>Nombre:</strong> {{ selectedSolicitud.name }}</p>
+        <p><strong>Teléfono:</strong> {{ selectedSolicitud.phone }}</p>
+        <p><strong>Email:</strong> {{ selectedSolicitud.email }}</p>
+        <p><strong>Tipo de Persona:</strong> {{ selectedSolicitud.personType }}</p>
+        <p><strong>RFC:</strong> {{ selectedSolicitud.rfc }}</p>
+        <p><strong>Estado:</strong> {{ selectedSolicitud.state }}</p>
+        <p><strong>Municipio:</strong> {{ selectedSolicitud.city }}</p>
+        <p><strong>Calle:</strong> {{ selectedSolicitud.street }}</p>
+        <p><strong>Código Postal:</strong> {{ selectedSolicitud.postalCode }}</p>
+    </div>
+</div>
+
+<div class="button-container">
+    <button class="btn-regresar" (click)="regresarAlLogin()">Regresar al Login</button>
+</div>
+</body>
